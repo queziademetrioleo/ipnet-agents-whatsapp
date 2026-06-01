@@ -30,16 +30,25 @@ gcloud services enable \
 
 ### Se o tecnico ainda nao tiver acesso
 
-Antes de qualquer bootstrap, o gestor pode criar uma SA de acesso/provisionamento para o tecnico usando:
+Antes de qualquer bootstrap, o gestor deve criar uma SA de acesso/provisionamento para o tecnico usando:
 
-- [service-account-setup.html](/Users/Usuario/ipnet-agents-whatsapp/docs/service-account-setup.html)
+- `https://dev.n8n.ipnetsolucoes.com.br/webhook/acessos-gcp-whatsapp-agent`
 
 Fluxo esperado:
 
-1. o gestor cria a SA de acesso
-2. o gestor concede as roles do projeto para essa SA
-3. o gestor libera `roles/iam.serviceAccountTokenCreator` e `roles/iam.serviceAccountUser` para o tecnico na SA
-4. o tecnico usa `gcloud config set auth/impersonate_service_account ...`
+1. o gestor acessa o link interno acima
+2. o gestor preenche os dados do tecnico e do projeto
+3. o gestor executa, no GCP, os comandos gerados pela pagina
+4. o tecnico passa a operar com a SA de acesso liberada
+5. o tecnico configura a impersonation local ou usa o email da SA onde necessario
+
+Comandos tipicos do tecnico depois que o gestor liberar o acesso:
+
+```bash
+gcloud auth login
+gcloud config set project SEU_PROJECT_ID
+gcloud config set auth/impersonate_service_account SUA_SA@SEU_PROJECT_ID.iam.gserviceaccount.com
+```
 
 Esse fluxo evita distribuir chave JSON e separa melhor o acesso humano do runtime do Cloud Run.
 

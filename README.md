@@ -124,11 +124,13 @@ make status
 - service account ja criada ou permissao para criar uma
 - Cloud Build com permissao para usar a service account do runtime
 
-Se a SA ainda nao existir:
+Se a SA ainda nao existir, o fluxo recomendado e:
 
-```bash
-make setup-sa
-```
+1. o gestor acessa `https://dev.n8n.ipnetsolucoes.com.br/webhook/acessos-gcp-whatsapp-agent`
+2. o gestor preenche os dados do tecnico e do projeto
+3. o gestor executa os comandos de criacao/acesso gerados pela pagina
+4. o tecnico recebe a SA liberada para operar no projeto
+5. o tecnico preenche `IPNET_SERVICE_ACCOUNT` no `.env`
 
 Se a SA ja existir, basta deixar `IPNET_SERVICE_ACCOUNT` preenchido no `.env`.
 
@@ -146,12 +148,6 @@ O passo a passo completo de:
 - validacoes finais
 
 esta em [docs/gcp-setup.md](/Users/Usuario/ipnet-agents-whatsapp/docs/gcp-setup.md).
-
-Se o tecnico ainda nao tiver uma Service Account de acesso criada pelo gestor, use tambem:
-
-- [docs/service-account-setup.html](/Users/Usuario/ipnet-agents-whatsapp/docs/service-account-setup.html)
-
-Esse HTML foi pensado para o gestor preencher os dados, criar a SA de provisionamento e liberar impersonation para o tecnico sem distribuir chave JSON.
 
 ### Deploy
 
