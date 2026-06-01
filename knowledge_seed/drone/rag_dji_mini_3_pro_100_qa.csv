@@ -1,0 +1,101 @@
+pergunta,resposta
+Quais documentos devem ser lidos antes do primeiro voo do DJI Mini 3 Pro?,"Leia as Diretrizes de Segurança, o Guia de Início Rápido e o Manual de Instruções antes de utilizar o DJI Mini 3 Pro."
+Onde encontro vídeos tutoriais do DJI Mini 3 Pro?,"Os vídeos tutoriais estão disponíveis no endereço https://s.dji.com/guide11, indicado no manual para demonstrar o uso seguro do Mini 3 Pro."
+Qual aplicativo deve ser usado durante o voo do DJI Mini 3 Pro?,Use o aplicativo DJI Fly durante o voo. O DJI RC já vem com o DJI Fly instalado; no DJI RC-N1 é necessário instalar o app em um dispositivo móvel.
+Quais versões mínimas de sistema operacional são compatíveis com o DJI Fly?,O DJI Fly é compatível com Android 6.0 ou posterior e iOS 11.0 ou posterior.
+O que acontece se a aeronave não estiver ligada ou conectada ao aplicativo durante o voo?,"Por segurança, o voo fica limitado a 30 m de altura e 50 m de distância quando a aeronave não está ligada ao aplicativo ou a sessão não foi iniciada."
+Qual é a faixa de temperatura de funcionamento do DJI Mini 3 Pro?,A temperatura de funcionamento do produto é de -10 °C a 40 °C.
+Qual é o peso aproximado do DJI Mini 3 Pro?,"O DJI Mini 3 Pro tem peso inferior a 249 g quando usado com a Bateria de Voo Inteligente, hélices e cartão microSD."
+Qual é a velocidade máxima de voo do DJI Mini 3 Pro?,"A velocidade máxima de voo é de 57,6 km/h, equivalente a 36 mph."
+Qual é o tempo máximo de voo com a Bateria de Voo Inteligente?,"Com a Bateria de Voo Inteligente, o tempo máximo de voo é de até 34 minutos em condições de teste sem vento."
+Qual é o tempo máximo de voo com a Bateria de Voo Inteligente Plus?,"Com a Bateria de Voo Inteligente Plus, o tempo máximo de voo é de até 47 minutos em condições de teste sem vento."
+A Bateria de Voo Inteligente Plus altera o peso de decolagem?,"Sim. Com a Bateria de Voo Inteligente Plus, o peso máximo de decolagem passa de 249 g, então é necessário cumprir as leis locais aplicáveis."
+Qual alcance máximo de transmissão é anunciado para o DJI Mini 3 Pro?,"O alcance máximo de transmissão é de até 12 km em modo compatível com FCC, em área aberta, sem interferência eletromagnética e a cerca de 120 m de altitude."
+Qual resolução de transmissão ao vivo o DJI Mini 3 Pro suporta?,"A transmissão de vídeo da aeronave para o DJI Fly pode chegar a 1080p a 30 fps, dependendo do controle e do dispositivo utilizado."
+Qual sensor de câmera o DJI Mini 3 Pro utiliza?,"A câmera usa um sensor CMOS de 1/1,3 polegada."
+Qual é a resolução máxima de foto do DJI Mini 3 Pro?,A câmera pode capturar fotografias de até 48 MP.
+Qual resolução de vídeo o DJI Mini 3 Pro consegue gravar?,"O DJI Mini 3 Pro consegue gravar vídeo em 4K, além de suportar H.264/H.265 e câmera lenta."
+O DJI Mini 3 Pro suporta modo vertical?,Sim. A suspensão cardã pode alternar entre modo paisagem e modo vertical pelo DJI Fly.
+Como preparar a aeronave pela primeira vez?,"Remova o protetor da suspensão cardã, carregue e ative a bateria, desdobre os braços traseiros, depois os dianteiros e, por fim, as hélices."
+Por que remover o protetor da suspensão cardã antes de ligar a aeronave?,Porque deixar o protetor instalado pode afetar o autodiagnóstico da aeronave.
+O DJI Mini 3 Pro precisa ser ativado antes do primeiro uso?,"Sim. Depois de ligar a aeronave e o telecomando, siga as instruções no DJI Fly; é necessária conexão à internet."
+A aeronave conecta automaticamente ao telecomando após a ativação?,"Sim. Após a ativação, a aeronave é ligada automaticamente ao telecomando; se falhar, siga as instruções do DJI Fly para vincular."
+Quando devo atualizar o firmware?,Atualize o firmware sempre que o DJI Fly mostrar um aviso de nova versão para garantir a melhor experiência de uso.
+Quais modos de voo o DJI Mini 3 Pro possui?,"Ele possui os modos Normal, Desportivo e Cinema, além do modo ATTI acionado automaticamente em determinadas condições."
+Como o Modo Normal estabiliza a aeronave?,"No Modo Normal, a aeronave usa GNSS, sistemas de visão frontal, traseiro e inferior e detecção por infravermelhos para localização e estabilização."
+Qual é a velocidade máxima no Modo Normal com visão ativa?,"Com sistemas de visão ativados e boas condições ambientais, a velocidade máxima no Modo Normal é de 10 m/s."
+O que muda no Modo Desportivo?,"No Modo Desportivo, a aeronave fica mais ágil e rápida, usa GNSS e visão inferior para posicionamento, mas a detecção de obstáculos é desativada."
+Qual é a velocidade máxima no Modo Desportivo?,A velocidade máxima no Modo Desportivo é de 16 m/s.
+Para que serve o Modo Cinema?,"O Modo Cinema limita a velocidade de voo com base no Modo Normal, deixando a aeronave mais estável para gravações."
+Quando a aeronave entra em modo ATTI?,Ela entra em modo ATTI quando os sistemas de visão estão indisponíveis ou desativados e o sinal GNSS está fraco ou a bússola sofre interferência.
+Qual cuidado é necessário no modo ATTI?,"No modo ATTI, a aeronave pode derivar com o vento e não paira nem trava automaticamente; o piloto deve pousar o quanto antes se houver risco."
+O que significa LED amarelo piscando rapidamente na aeronave?,Indica perda de sinal do telecomando.
+O que significa LED vermelho piscando lentamente na aeronave?,Indica bateria fraca.
+O que significa LED vermelho piscando rapidamente na aeronave?,Indica bateria criticamente baixa.
+O que é QuickTransfer?,É a função que permite conectar a aeronave diretamente a dispositivos móveis via Wi-Fi para transferir fotos e vídeos pelo DJI Fly sem usar o DJI RC-N1.
+Qual é a taxa máxima de transferência do QuickTransfer?,A taxa máxima informada é de até 25 MB/s em condições compatíveis.
+O DJI RC suporta QuickTransfer?,Não. O manual informa que o DJI RC não suporta QuickTransfer.
+Quais recursos devem estar ativos no celular para usar QuickTransfer?,"Bluetooth, Wi-Fi e serviços de localização devem estar ativados no dispositivo móvel."
+O que é RTH no DJI Mini 3 Pro?,"RTH, ou Voltar à posição inicial, faz a aeronave retornar ao último ponto inicial registado quando o posicionamento funciona normalmente."
+Quais são os três tipos de RTH?,"Os tipos são RTH inteligente, RTH com pouca bateria e RTH à prova de falhas."
+Como o ponto inicial é registrado?,O primeiro local em que a aeronave recebe sinal GNSS forte a moderado é registrado como ponto inicial padrão.
+Como iniciar o RTH inteligente?,Toque no comando de RTH no DJI Fly ou mantenha premido o botão RTH no telecomando até ouvir um sinal sonoro.
+O que acontece se o RTH começar a menos de 5 m do ponto inicial?,A aeronave aterrará imediatamente.
+O que aciona o RTH de bateria fraca?,Ele é acionado quando a Bateria de Voo Inteligente está tão descarregada que a aeronave pode não conseguir voltar com segurança.
+O RTH de bateria fraca pode ser cancelado?,"O usuário pode cancelar pelo botão RTH, mas isso pode deixar a bateria sem energia suficiente para pousar com segurança."
+Quando a aterragem automática ocorre por bateria?,A aeronave aterrará automaticamente se a bateria restante só for suficiente para descer da altitude atual.
+Quando o RTH à prova de falhas é ativado?,"Se definido para regressar, com ponto inicial registrado, bom GNSS e bússola normal, ele ativa automaticamente após perda de sinal do telecomando por mais de três segundos."
+A aeronave consegue evitar obstáculos laterais durante o RTH?,"Não. Durante o RTH, obstáculos nas laterais e acima da aeronave não podem ser detectados ou evitados."
+Por que definir a altitude RTH antes do voo?,"Porque no RTH a aeronave sobe até a altitude definida se estiver abaixo dela, ajudando a evitar obstáculos no trajeto."
+Como funciona a proteção de aterragem?,"Se o solo for adequado, a aeronave aterrará suavemente; se não for adequado, pairará e aguardará confirmação do piloto."
+Qual é o intervalo de medição do sistema de visão frontal?,"O sistema de visão frontal mede com precisão de 0,39 m a 25 m."
+Qual é o intervalo de medição do sistema de visão traseiro?,"O sistema de visão traseiro mede com precisão de 0,36 m a 23,4 m."
+Qual é o intervalo de medição do sistema de visão inferior?,"O sistema de visão inferior mede com precisão de 0,15 m a 9 m e funciona melhor entre 0,5 m e 12 m de altitude."
+Quando o sistema de visão descendente é usado?,Ele é aplicável quando os sinais GNSS estão indisponíveis ou fracos e é ativado automaticamente nos modos Normal ou Cinema.
+Quando os sistemas de visão frontal e traseiro são ativados?,Eles são ativados automaticamente nos modos Normal ou Cinema quando a detecção de obstáculos está definida como Ignorar ou Travar no DJI Fly.
+Os sistemas de visão substituem o julgamento do piloto?,Não. O manual afirma que eles funcionam sob condições limitadas e não substituem o controle e o julgamento humano.
+Em quais superfícies o sistema de visão pode ter desempenho ruim?,"Pode ter desempenho ruim sobre superfícies monocromáticas, reflexivas, transparentes, móveis, muito claras ou escuras, água, neve, vidro e padrões repetidos."
+Como calibrar as câmeras do sistema de visão se a anomalia persistir?,Use o DJI Assistant 2 da série de drones de consumidor para realizar a calibração avançada conforme instruções na tela.
+O que é FocusTrack?,"FocusTrack agrupa funções inteligentes como Spotlight, Point of Interest e ActiveTrack para acompanhar ou orbitar objetos selecionados."
+Como sair do FocusTrack?,Toque em Parar no DJI Fly ou pressione uma vez o botão de Pausa de Voo no telecomando.
+Onde o FocusTrack não deve ser usado?,"Não use em áreas com pessoas, animais, veículos em movimento, objetos pequenos ou finos, superfícies transparentes, água ou neve."
+O que o MasterShots faz?,Ele executa diferentes manobras em sequência mantendo o objeto no centro e gera um vídeo cinematográfico curto.
+O que são QuickShots?,QuickShots são modos de gravação automática em que a aeronave voa por trajetórias predefinidas e retorna à posição original ao terminar.
+Quais modos Hyperlapse estão disponíveis?,"Os modos Hyperlapse incluem Livre, Círculo, Bloqueio de Curso e Ponto de Passagem."
+O que o modo Hyperlapse Livre faz?,"A aeronave tira fotos automaticamente e gera um vídeo em timelapse, podendo ser controlada pelo piloto após a decolagem."
+Como o APAS ajuda no voo?,"Com APAS ativado, a aeronave pode contornar obstáculos enquanto responde às entradas dos manípulos de controle."
+Como ativar o APAS?,"No DJI Fly, entre em Definições do sistema, Segurança e ative o APAS selecionando Ignorar."
+Como montar as hélices corretamente?,Instale hélices marcadas nos motores dos braços com marcas e hélices sem marcas nos motores dos braços sem marcas.
+Qual chave deve ser usada para montar hélices?,Use apenas a chave de fendas fornecida no pacote da aeronave para montar as hélices.
+O que fazer se uma hélice estiver partida?,"Retire as duas hélices e parafusos do motor correspondente, elimine-os e use duas hélices da mesma embalagem."
+Posso misturar hélices de embalagens diferentes?,Não. O manual orienta não misturar hélices de embalagens diferentes.
+As hélices devem ser inspecionadas antes do voo?,"Sim. Verifique se estão em boas condições, sem envelhecimento, lascas, quebras ou folgas, e substitua se necessário."
+Como verificar o nível da bateria da aeronave?,Prima o botão de alimentação uma vez para verificar o nível da bateria pelos LEDs.
+Qual é a temperatura ideal de carregamento da bateria?,A temperatura ideal de carregamento é de 22 °C a 28 °C.
+Em que faixa de temperatura a bateria pode ser carregada?,O carregamento é interrompido se a célula não estiver entre 5 °C e 40 °C.
+Devo carregar a bateria imediatamente após o voo?,Não. Aguarde a bateria arrefecer até a temperatura ambiente antes de carregá-la.
+A bateria pode ser carregada com a aeronave ligada?,Não. A bateria não pode ser carregada se a aeronave estiver ligada.
+Como inserir a Bateria de Voo Inteligente com segurança?,Insira a bateria no compartimento até ouvir um clique e confirme que está montada de forma segura antes da decolagem.
+Como remover a Bateria de Voo Inteligente?,Pressione a parte texturizada das fivelas nas laterais da bateria e remova-a do compartimento.
+Quais cuidados tomar com a suspensão cardã antes de decolar?,"Certifique-se de que não há adesivos ou objetos na suspensão cardã, remova o protetor e decole de terreno aberto e plano."
+Quais são os modos de operação da suspensão cardã?,"Há o Modo de Seguimento, adequado para fotos, e o Modo FPV, que sincroniza a suspensão com o movimento da aeronave."
+Como controlar a inclinação da câmera?,Use o botão da suspensão cardã no telecomando ou ajuste pela visualização da câmera no DJI Fly.
+Qual cartão é necessário para armazenar vídeos de alta resolução?,É necessário cartão microSD UHS-I Speed Grade 3 ou superior devido às altas velocidades de leitura e gravação.
+A aeronave grava sem cartão microSD?,"Sim. Fotos e vídeos podem ser salvos no armazenamento interno quando não houver cartão microSD, mas o uso de microSD é recomendado para dados grandes."
+Qual é o limite de duração para uma gravação de vídeo única?,Cada gravação de vídeo única é limitada a 30 minutos para garantir estabilidade do sistema de câmera.
+O que fazer antes de gravar fotos ou vídeos importantes?,Verifique as configurações da câmera e tire algumas fotos de teste para confirmar que a câmera está funcionando corretamente.
+Quais recursos o telecomando DJI RC possui?,"O DJI RC tem tela tátil de 5,5 polegadas, resolução 1920×1080, transmissão OcuSync O3, Wi-Fi, GNSS, Bluetooth, alto-falantes e microSD."
+Qual é a autonomia máxima do DJI RC?,O DJI RC tem tempo máximo de funcionamento de aproximadamente quatro horas.
+Qual é a autonomia máxima do DJI RC-N1?,O DJI RC-N1 tem tempo máximo de funcionamento de aproximadamente seis horas.
+Qual é o modo de controle padrão dos manípulos?,O modo padrão é o Modo 2.
+Para que serve o botão de Pausa de Voo/RTH?,Pressione uma vez para travar e pairar; mantenha pressionado até o sinal sonoro para iniciar RTH; pressione de novo para cancelar o RTH.
+Quais posições do interruptor de modo correspondem aos modos de voo?,"S corresponde ao Modo Desportivo, N ao Modo Normal e C ao Modo Cinema."
+Como ligar um telecomando à aeronave?,"Ligue ambos, abra o DJI Fly, acesse Controlar e Conectar-se à aeronave, e mantenha o botão de alimentação da aeronave premido por mais de quatro segundos."
+Quando calibrar a bússola do telecomando?,Calibre após usar em áreas com interferência eletromagnética ou quando aparecer um aviso de calibração.
+Qual é a altura máxima geral de voo informada no manual?,"A altura de voo é limitada a 500 m e o usuário não deve ultrapassar esse limite, além de cumprir leis locais."
+Em quais condições meteorológicas não se deve operar a aeronave?,"Não opere em condições severas, incluindo ventos acima de 10,7 m/s, neve, chuva, nevoeiro, granizo ou relâmpagos."
+O que são zonas GEO?,"Zonas GEO são áreas de voo específicas com restrições, avisos ou limites, como aeroportos, grandes eventos, emergências públicas e áreas sensíveis."
+Como iniciar os motores?,"Execute o Comando de Manípulos Combinados, CSC, conforme indicado no manual, e solte os dois manípulos quando os motores começarem a girar."
+Como parar os motores após pousar?,"Após a aterragem, empurre o acelerador para baixo e segure; os motores param após três segundos."
+O que conferir na lista pré-voo?,"Confirme bateria e hélices seguras, câmera e suspensão cardã funcionando, motores livres, DJI Fly conectado, firmware atualizado e ambiente seguro."
+Como atualizar o firmware pelo DJI Fly?,"Conecte a aeronave ou telecomando ao DJI Fly, ligue à internet e siga as instruções quando aparecer a notificação de atualização."

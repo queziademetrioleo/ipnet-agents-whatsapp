@@ -22,15 +22,24 @@ Tabelas:
 
 O schema e criado automaticamente no primeiro uso. O codigo tambem tenta criar a extensao `vector`.
 
+## Formato padrao
+
+O formato padrao deste repo e CSV com duas colunas:
+
+```csv
+pergunta,resposta
+Como calibrar o drone?,Siga o passo a passo do fabricante...
+```
+
 ## Ingestao
 
 Com o `.env` preenchido:
 
 ```bash
-make ingest-knowledge FILES="docs/faq.md docs/politicas.md"
+make ingest-knowledge FILES="knowledge_seed/drone/rag_dji_mini_3_pro_100_qa.csv"
 ```
 
-Cada arquivo e lido, quebrado em chunks e salvo no Postgres junto com o embedding.
+Cada CSV e convertido para um documento estruturado, quebrado em chunks e salvo no Postgres junto com o embedding.
 
 ## Consulta em runtime
 

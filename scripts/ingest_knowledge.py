@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 from pathlib import Path
 import sys
 
@@ -12,9 +13,40 @@ from app.config import AppConfig
 from app.knowledge.service import build_knowledge_service
 
 
+def _load_csv_qa(path: Path) -> str:
+    with path.open("r", encoding="utf-8-sig", newline="") as handle:
+        reader = csv.DictReader(handle)
+        fieldnames = {name.strip().lower(): name for name in (reader.fieldnames or [])}
+        question_field = fieldnames.get("pergunta") or fieldnames.get("question")
+        answer_field = fieldnames.get("resposta") or fieldnames.get("answer")
+
+        if not question_field or not answer_field:
+            raise ValueError(
+                f"{path.name} precisa ter colunas 'pergunta' e 'resposta'. "
+                f"Colunas encontradas: {reader.fieldnames or []}"
+            )
+
+        sections: list[str] = []
+        for index, row in enumerate(reader, start=1):
+            question = (row.get(question_field) or "").strip()
+            answer = (row.get(answer_field) or "").strip()
+            if not question or not answer:
+                continue
+            sections.append(
+                f"## Pergunta {index}\n"
+                f"Pergunta: {question}\n"
+                f"Resposta: {answer}"
+            )
+
+    if not sections:
+        raise ValueError(f"{path.name} nao possui linhas validas com pergunta e resposta.")
+
+    return "\n\n".join(sections)
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Ingesta arquivos de texto/markdown na base vetorial do agente."
+        description="Ingesta arquivos de texto/markdown ou CSV pergunta-resposta na base vetorial do agente."
     )
     parser.add_argument("paths", nargs="+", help="Arquivos para ingestao.")
     return parser.parse_args()
@@ -35,7 +67,16 @@ def main() -> int:
         if not path.exists():
             print(f"[skip] arquivo nao encontrado: {path}")
             continue
-        chunks = knowledge.ingest_file(path)
+        if path.suffix.lower() == ".csv":
+            content = _load_csv_qa(path)
+            chunks = knowledge.ingest_text(
+                title=path.stem,
+                content=content,
+                source_uri=str(path),
+                document_id=path.stem,
+            )
+        else:
+            chunks = knowledge.ingest_file(path)
         total_chunks += chunks
         print(f"[ok] {path} -> {chunks} chunk(s)")
 

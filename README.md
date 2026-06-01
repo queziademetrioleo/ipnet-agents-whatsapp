@@ -267,10 +267,17 @@ Fluxo:
 4. embeddings e chunks vao para o Postgres no schema `knowledge`
 5. a tool `consultar_base_conhecimento` consulta essa base em runtime
 
+Formato padrao da base:
+
+```csv
+pergunta,resposta
+Como calibrar o drone?,Siga o passo a passo do fabricante...
+```
+
 Comando de ingestao:
 
 ```bash
-make ingest-knowledge FILES="docs/faq.md docs/politicas.md"
+make ingest-knowledge FILES="knowledge_seed/drone/rag_dji_mini_3_pro_100_qa.csv"
 ```
 
 Detalhes:
@@ -286,14 +293,12 @@ Arquivos principais do template:
 
 - [prompts/system_prompt.md](prompts/system_prompt.md)
 - [app/tools.py](app/tools.py)
-- [knowledge_seed/drone/faq-operacao.md](knowledge_seed/drone/faq-operacao.md)
-- [knowledge_seed/drone/checklist-seguranca.md](knowledge_seed/drone/checklist-seguranca.md)
-- [knowledge_seed/drone/cuidados-bateria.md](knowledge_seed/drone/cuidados-bateria.md)
+- [knowledge_seed/drone/rag_dji_mini_3_pro_100_qa.csv](knowledge_seed/drone/rag_dji_mini_3_pro_100_qa.csv)
 
 Para carregar a base inicial:
 
 ```bash
-make ingest-knowledge FILES="knowledge_seed/drone/faq-operacao.md knowledge_seed/drone/checklist-seguranca.md knowledge_seed/drone/cuidados-bateria.md"
+make ingest-knowledge FILES="knowledge_seed/drone/rag_dji_mini_3_pro_100_qa.csv"
 ```
 
 ## Executar localmente

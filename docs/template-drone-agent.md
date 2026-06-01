@@ -8,7 +8,7 @@ Este repositorio ja pode ser usado como template de um agente de suporte para us
 - tools de checklist pre-voo e manutencao basica
 - tool de consulta de base de conhecimento
 - tool para registrar caso de suporte humano
-- base inicial em `knowledge_seed/drone/`
+- base inicial em CSV em `knowledge_seed/drone/`
 
 ## Como usar como template
 
@@ -17,7 +17,7 @@ Este repositorio ja pode ser usado como template de um agente de suporte para us
 3. ingira a base inicial:
 
 ```bash
-make ingest-knowledge FILES="knowledge_seed/drone/faq-operacao.md knowledge_seed/drone/checklist-seguranca.md knowledge_seed/drone/cuidados-bateria.md"
+make ingest-knowledge FILES="knowledge_seed/drone/rag_dji_mini_3_pro_100_qa.csv"
 ```
 
 4. teste localmente com perguntas como:
