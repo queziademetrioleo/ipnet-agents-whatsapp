@@ -55,6 +55,29 @@ Se a Service Account do Cloud Run ja existir, preencha tambem:
 IPNET_SERVICE_ACCOUNT=sua-sa@SEU_PROJECT_ID.iam.gserviceaccount.com
 ```
 
+## Desenvolvimento local
+
+O `main.py` e o starter estao corretos, mas o agente nao roda "sozinho" sem banco e Redis.
+
+Para desenvolvimento local, use uma destas abordagens:
+
+- mais simples: PostgreSQL e Redis locais
+- mais proxima de producao: Cloud SQL + proxy local e um Redis acessivel pela sua maquina
+
+Se quiser subir tudo local rapidamente, um caminho simples e:
+
+```bash
+docker run --name ipnet-postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=agentdb -p 5432:5432 -d postgres:15
+docker run --name ipnet-redis -p 6379:6379 -d redis:7
+```
+
+E no `.env`:
+
+```env
+IPNET_POSTGRES_URL=postgresql+asyncpg://postgres:postgres@127.0.0.1:5432/agentdb
+IPNET_REDIS_URL=redis://127.0.0.1:6379/0
+```
+
 ### 3. Ajustar o comportamento do agente
 
 Edite:
@@ -99,6 +122,7 @@ make status
 - Cloud SQL ja criado
 - Redis ja criado
 - service account ja criada ou permissao para criar uma
+- Cloud Build com permissao para usar a service account do runtime
 
 Se a SA ainda nao existir:
 
@@ -107,6 +131,21 @@ make setup-sa
 ```
 
 Se a SA ja existir, basta deixar `IPNET_SERVICE_ACCOUNT` preenchido no `.env`.
+
+### Bootstrap completo de GCP
+
+O passo a passo completo de:
+
+- APIs
+- IAM
+- Service Account
+- Cloud Build
+- Cloud SQL
+- Redis
+- VPC Connector
+- validacoes finais
+
+esta em [docs/gcp-setup.md](/Users/Usuario/ipnet-agents-whatsapp/docs/gcp-setup.md).
 
 ### Deploy
 
