@@ -132,9 +132,10 @@ gcloud sql instances create whatsapp-agent-db \
   --database-version=POSTGRES_15 \
   --tier=db-f1-micro \
   --region=us-central1 \
-  --storage-type=SSD \
+  --storage-type=HDD \
   --storage-size=10GB \
-  --storage-auto-increase
+  --no-storage-auto-increase \
+  --no-backup
 
 gcloud sql databases create agentdb \
   --instance=whatsapp-agent-db
