@@ -1,6 +1,13 @@
 # GCP Setup
 
-Este documento cobre o bootstrap minimo de infraestrutura para este repo.
+Este documento cobre o bootstrap operacional do projeto no GCP.
+
+O foco aqui e diferenciar claramente:
+
+- acesso humano do tecnico
+- runtime service account do Cloud Run
+- Cloud Build service account
+- recursos de infraestrutura necessarios para o agente
 
 ## 1. Pre-requisitos
 
@@ -13,7 +20,31 @@ gcloud auth login
 gcloud config set project SEU_PROJECT_ID
 ```
 
-## 2. APIs necessarias
+## 2. Quando o tecnico ainda nao tem acesso
+
+Antes de qualquer bootstrap, o caminho recomendado e:
+
+1. o gestor acessa `https://dev.n8n.ipnetsolucoes.com.br/webhook/acessos-gcp-whatsapp-agent`
+2. o gestor preenche os dados do tecnico e do projeto
+3. o gestor executa os comandos gerados
+4. o tecnico passa a operar com a SA de acesso liberada
+
+Depois disso, o tecnico normalmente roda:
+
+```bash
+gcloud auth login
+gcloud config set project SEU_PROJECT_ID
+gcloud config set auth/impersonate_service_account SUA_SA@SEU_PROJECT_ID.iam.gserviceaccount.com
+```
+
+Esse fluxo evita chave JSON distribuida manualmente.
+
+Fallback:
+
+- `make setup-sa` so faz sentido se a propria identidade do tecnico ja tiver privilegios suficientes para criar e bindar Service Accounts no projeto
+- para o processo interno padrao, prefira sempre o fluxo do gestor pelo endpoint acima
+
+## 3. APIs necessarias
 
 ```bash
 gcloud services enable \
@@ -26,33 +57,9 @@ gcloud services enable \
   compute.googleapis.com
 ```
 
-## 3. Permissoes minimas
+## 4. Permissoes minimas
 
-### Se o tecnico ainda nao tiver acesso
-
-Antes de qualquer bootstrap, o gestor deve criar uma SA de acesso/provisionamento para o tecnico usando:
-
-- `https://dev.n8n.ipnetsolucoes.com.br/webhook/acessos-gcp-whatsapp-agent`
-
-Fluxo esperado:
-
-1. o gestor acessa o link interno acima
-2. o gestor preenche os dados do tecnico e do projeto
-3. o gestor executa, no GCP, os comandos gerados pela pagina
-4. o tecnico passa a operar com a SA de acesso liberada
-5. o tecnico configura a impersonation local ou usa o email da SA onde necessario
-
-Comandos tipicos do tecnico depois que o gestor liberar o acesso:
-
-```bash
-gcloud auth login
-gcloud config set project SEU_PROJECT_ID
-gcloud config set auth/impersonate_service_account SUA_SA@SEU_PROJECT_ID.iam.gserviceaccount.com
-```
-
-Esse fluxo evita distribuir chave JSON e separa melhor o acesso humano do runtime do Cloud Run.
-
-### Sua conta de desenvolvedor
+### Acesso humano do tecnico
 
 Voce precisa de permissoes para:
 
@@ -75,17 +82,24 @@ Na pratica, as roles mais comuns sao:
 
 ### Runtime Service Account do agente
 
-Se a SA do agente ja existir, anote o email e coloque em `.env`:
+Esta e a identidade usada pelo servico do Cloud Run.
+
+Se a SA do runtime ja existir, anote o email e coloque em `.env`:
 
 ```env
 IPNET_SERVICE_ACCOUNT=sua-sa@SEU_PROJECT_ID.iam.gserviceaccount.com
 ```
 
-Ela precisa, no minimo, destas roles no projeto:
+Para este starter, as roles minimas reais sao:
 
 - `roles/cloudsql.client`
-- `roles/redis.editor`
 - `roles/logging.logWriter`
+
+Observacoes:
+
+- `roles/redis.editor` nao e obrigatoria em runtime para o client Redis deste projeto
+- `roles/secretmanager.secretAccessor` tambem nao e obrigatoria hoje, porque o deploy usa `--set-env-vars` e nao Secret Manager
+- se o time mudar o fluxo de deploy para Secret Manager, essa parte precisa ser revisada
 
 ### Cloud Build Service Account
 
@@ -111,7 +125,7 @@ gcloud iam service-accounts add-iam-policy-binding "$RUNTIME_SA" \
 
 Sem isso, o build pode falhar no deploy com erro de `actAs` ou de permissao no Cloud Run.
 
-## 4. Cloud SQL
+## 5. Cloud SQL
 
 ```bash
 gcloud sql instances create whatsapp-agent-db \
@@ -135,7 +149,11 @@ gcloud sql instances describe whatsapp-agent-db \
 
 Guarde o `connectionName` retornado. Ele entra no deploy como `SQL_INSTANCE`.
 
-## 5. Redis (Memorystore)
+Detalhes operacionais do PostgreSQL:
+
+- [cloudsql-postgres.md](/Users/Usuario/ipnet-agents-whatsapp/docs/cloudsql-postgres.md)
+
+## 6. Redis (Memorystore)
 
 ```bash
 gcloud redis instances create whatsapp-agent-redis \
@@ -151,7 +169,7 @@ gcloud redis instances describe whatsapp-agent-redis \
 
 Guarde o IP retornado. Ele entra no `.env` como `IPNET_REDIS_URL`.
 
-## 6. VPC Connector
+## 7. VPC Connector
 
 Para o Cloud Run falar com o Memorystore, crie o connector:
 
@@ -170,7 +188,7 @@ gcloud compute networks vpc-access connectors describe whatsapp-agent-connector 
   --format='value(state)'
 ```
 
-## 7. Preenchimento do `.env`
+## 8. Preenchimento do `.env`
 
 Exemplo dos campos principais:
 
@@ -180,7 +198,7 @@ IPNET_POSTGRES_URL=postgresql+asyncpg://agentuser:SENHA@127.0.0.1:5432/agentdb
 IPNET_REDIS_URL=redis://10.x.x.x:6379/0
 ```
 
-## 8. Deploy deste repo
+## 9. Deploy deste repo
 
 No repo:
 
@@ -191,6 +209,19 @@ make deploy \
   SERVICE=ipnet-whatsapp-agent \
   SQL_INSTANCE=SEU_PROJECT_ID:us-central1:whatsapp-agent-db
 ```
+
+O `make deploy` faz:
+
+- build da imagem
+- push da imagem
+- deploy do Cloud Run
+- injecao das variaveis `IPNET_*` do `.env`
+- anexo do Cloud SQL
+
+O `make deploy` nao faz automaticamente:
+
+- anexar VPC Connector
+- configurar egress privada para o Redis
 
 Depois do primeiro deploy, conecte o Redis ao servico:
 
@@ -203,7 +234,7 @@ gcloud run services update ipnet-whatsapp-agent \
   --service-account=sua-sa@SEU_PROJECT_ID.iam.gserviceaccount.com
 ```
 
-## 9. Validacoes finais
+## 10. Validacoes finais
 
 ```bash
 gcloud run services describe ipnet-whatsapp-agent \
@@ -223,3 +254,7 @@ Estado esperado:
 - Cloud Run com URL publica
 - Cloud SQL em `RUNNABLE`
 - Redis em `READY`
+
+Checklist operacional:
+
+- [go-live-checklist.md](/Users/Usuario/ipnet-agents-whatsapp/docs/go-live-checklist.md)
