@@ -28,6 +28,21 @@ gcloud services enable \
 
 ## 3. Permissoes minimas
 
+### Se o tecnico ainda nao tiver acesso
+
+Antes de qualquer bootstrap, o gestor pode criar uma SA de acesso/provisionamento para o tecnico usando:
+
+- [service-account-setup.html](/Users/Usuario/ipnet-agents-whatsapp/docs/service-account-setup.html)
+
+Fluxo esperado:
+
+1. o gestor cria a SA de acesso
+2. o gestor concede as roles do projeto para essa SA
+3. o gestor libera `roles/iam.serviceAccountTokenCreator` e `roles/iam.serviceAccountUser` para o tecnico na SA
+4. o tecnico usa `gcloud config set auth/impersonate_service_account ...`
+
+Esse fluxo evita distribuir chave JSON e separa melhor o acesso humano do runtime do Cloud Run.
+
 ### Sua conta de desenvolvedor
 
 Voce precisa de permissoes para:

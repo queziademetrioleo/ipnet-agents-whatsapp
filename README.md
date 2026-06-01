@@ -147,6 +147,12 @@ O passo a passo completo de:
 
 esta em [docs/gcp-setup.md](/Users/Usuario/ipnet-agents-whatsapp/docs/gcp-setup.md).
 
+Se o tecnico ainda nao tiver uma Service Account de acesso criada pelo gestor, use tambem:
+
+- [docs/service-account-setup.html](/Users/Usuario/ipnet-agents-whatsapp/docs/service-account-setup.html)
+
+Esse HTML foi pensado para o gestor preencher os dados, criar a SA de provisionamento e liberar impersonation para o tecnico sem distribuir chave JSON.
+
 ### Deploy
 
 ```bash
