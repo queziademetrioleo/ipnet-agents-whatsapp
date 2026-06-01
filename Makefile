@@ -35,7 +35,7 @@ doctor:
 	python3 scripts/doctor.py
 
 validate:
-	$(PYTHON) -m compileall main.py tools.py app scripts whatsapp_agent_ipnet
+	$(PYTHON) -m compileall main.py app scripts whatsapp_agent_ipnet
 
 run:
 	$(PYTHON) main.py

@@ -1,2 +1,0 @@
-"""Scripts operacionais do projeto."""
-

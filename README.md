@@ -35,9 +35,8 @@ Se algum desses passos ainda exigir adivinhação, a documentação está incomp
 ## O que este repositório contém
 
 - aplicação do agente (`main.py`)
-- runtime e registro do agente (`app/runtime.py`)
 - prompt de sistema (`prompts/system_prompt.md`)
-- tools e integrações (`app/tools.py`, `tools.py`)
+- tools e integrações (`app/tools.py`)
 - base de conhecimento vetorial (`app/knowledge/`)
 - persistência de leads (`app/repositories/`, `app/services/`)
 - configuração por ambiente (`.env.example`)
@@ -56,6 +55,8 @@ Este repositório já contém:
 - tools, prompt e base de conhecimento
 
 Ou seja: o time não precisa depender de um segundo repositório para rodar este agente.
+
+`whatsapp_agent_ipnet/` é esse motor local do agente. Ele ficou dentro deste repo porque agora o projeto é autossuficiente.
 
 ## Arquitetura
 
@@ -141,9 +142,7 @@ Se `make doctor` apontar placeholder ou variavel ausente, corrija antes de pross
 |   |-- rag.md
 |   `-- troubleshooting.md
 |-- app/
-|   |-- callbacks.py
 |   |-- config.py
-|   |-- runtime.py
 |   |-- tools.py
 |   |-- knowledge/
 |   |-- repositories/
@@ -155,7 +154,7 @@ Se `make doctor` apontar placeholder ou variavel ausente, corrija antes de pross
 |-- scripts/
 |   |-- doctor.py
 |   `-- ingest_knowledge.py
-`-- tools.py
+`-- whatsapp_agent_ipnet/
 ```
 
 ## Setup local
