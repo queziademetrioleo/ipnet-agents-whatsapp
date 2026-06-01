@@ -1,0 +1,5 @@
+# O framework atual depende da API 1.x do Agno.
+agno<2
+
+# Framework base do agente, fixado em um commit para manter reproducibilidade.
+git+https://github.com/queziademetrioleo/whatsapp-agent-framework.git@8ccdd59ec853648fe55633b701fd2311ede44974#egg=whatsapp-agent-ipnet
