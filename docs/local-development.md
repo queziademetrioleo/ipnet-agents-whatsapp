@@ -46,7 +46,8 @@ IPNET_PORT=8080
 ## 5. O que editar
 
 - `prompts/system_prompt.md`: tom, comportamento e regras do agente
-- `tools.py`: integracoes, FAQ, registro de lead, consultas
+- `app/tools.py`: integracoes, FAQ, registro de lead, consultas
+- `app/knowledge/`: chunking, embeddings e busca vetorial
 
 ## 6. Subir o agente
 
@@ -74,9 +75,9 @@ Status da instancia:
 make status
 ```
 
-## 8. O que o framework cria automaticamente
+## 8. O que o runtime cria automaticamente
 
-Na primeira inicializacao com PostgreSQL valido, o framework cria automaticamente:
+Na primeira inicializacao com PostgreSQL valido, o runtime deste repo cria automaticamente:
 
 - `ipnet_conversation_history`
 - `ipnet_agno_sessions`

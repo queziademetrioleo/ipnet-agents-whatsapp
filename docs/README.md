@@ -7,10 +7,12 @@ Este diretorio concentra a documentacao operacional do projeto.
 ### Quero desenvolver localmente
 
 - [local-development.md](local-development.md)
+- [env-reference.md](env-reference.md)
 
 ### Quero entender Cloud SQL e PostgreSQL
 
 - [cloudsql-postgres.md](cloudsql-postgres.md)
+- [rag.md](rag.md)
 
 ### Quero fazer o bootstrap de GCP
 

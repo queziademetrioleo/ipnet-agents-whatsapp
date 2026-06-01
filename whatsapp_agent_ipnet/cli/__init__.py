@@ -1,0 +1,2 @@
+"""CLI local do agente."""
+
