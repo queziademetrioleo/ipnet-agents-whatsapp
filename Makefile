@@ -1,4 +1,4 @@
-.PHONY: help setup run health qrcode status setup-sa deploy logs
+.PHONY: help infra-up infra-down setup doctor validate run health qrcode status setup-sa deploy logs
 
 VENV := .venv
 PYTHON := $(VENV)/bin/python
@@ -7,7 +7,11 @@ AGENT := $(VENV)/bin/whatsapp-agent
 
 help:
 	@printf "Targets disponiveis:\n"
+	@printf "  make infra-up\n"
+	@printf "  make infra-down\n"
 	@printf "  make setup\n"
+	@printf "  make doctor\n"
+	@printf "  make validate\n"
 	@printf "  make run\n"
 	@printf "  make health\n"
 	@printf "  make qrcode\n"
@@ -15,10 +19,22 @@ help:
 	@printf "  make deploy PROJECT_ID=... REGION=... SERVICE=... SQL_INSTANCE=...\n"
 	@printf "  make logs PROJECT_ID=... REGION=... SERVICE=...\n"
 
+infra-up:
+	docker compose up -d postgres redis
+
+infra-down:
+	docker compose down
+
 setup:
 	python3 -m venv $(VENV)
 	$(PIP) install --upgrade pip
 	$(PIP) install -r requirements.txt
+
+doctor:
+	python3 scripts/doctor.py
+
+validate:
+	$(PYTHON) -m py_compile main.py tools.py
 
 run:
 	$(PYTHON) main.py

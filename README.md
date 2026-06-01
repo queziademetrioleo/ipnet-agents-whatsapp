@@ -1,27 +1,26 @@
-# IPNET Agents WhatsApp
+# IPNET WhatsApp Agent
 
-Repositorio-base para subir um agente de WhatsApp da IPNET com o framework `whatsapp-agent-framework`, usando Python local para desenvolvimento e Google Cloud Run para producao.
+Projeto-base para criar, configurar e publicar um agente de WhatsApp da IPNET com o framework `whatsapp-agent-framework`.
 
-Este repo nao e o framework em si. Ele e o projeto do agente:
+Este repositório existe para resolver um problema operacional: permitir que qualquer integrante do time consiga sair do zero e colocar um agente no ar sem depender de contexto oral, tentativa e erro ou adivinhação de infraestrutura.
 
-- prompt
-- tools
-- `.env`
-- Dockerfile
-- fluxo operacional de bootstrap
-- documentacao para time interno
+## O que este repositório contém
 
-## O que este repo resolve
+- aplicação do agente (`main.py`)
+- prompt de sistema (`prompts/system_prompt.md`)
+- tools e integrações (`tools.py`)
+- configuração por ambiente (`.env.example`)
+- automação local (`Makefile`, `compose.yaml`, `scripts/doctor.py`)
+- documentação operacional para acesso, infraestrutura, banco, execução local, deploy e go-live (`docs/`)
 
-- padrao unico para um agente de WhatsApp
-- caminho rapido para desenvolvimento local
-- deploy no Cloud Run com Cloud SQL e Redis
-- onboarding de colegas sem depender de contexto oral
+## O que este repositório não é
+
+Este repositório não é o framework compartilhado. O framework continua no pacote `whatsapp-agent-framework`. Este repositório é o projeto do agente que o time clona para operar.
 
 ## Arquitetura
 
 ```text
-Usuario no WhatsApp
+Cliente no WhatsApp
         |
         v
 Evolution API
@@ -34,126 +33,210 @@ Cloud Run (main.py)
         +--> Redis / Memorystore
 ```
 
-## Estrutura do repo
+## Quem deve ler o quê
+
+### Gestor
+
+Se o técnico ainda não tem acesso ao projeto GCP, comece por:
+
+- [docs/gcp-setup.md](docs/gcp-setup.md)
+
+O fluxo oficial de concessão de acesso está neste endpoint interno:
+
+`https://dev.n8n.ipnetsolucoes.com.br/webhook/acessos-gcp-whatsapp-agent`
+
+### Técnico
+
+Se você já tem acesso ao projeto GCP, siga esta ordem:
+
+1. [Setup local](#setup-local)
+2. [Configurar o agente](#configurar-o-agente)
+3. [Executar localmente](#executar-localmente)
+4. [Preparar GCP](#preparar-gcp)
+5. [Fazer deploy](#fazer-deploy)
+6. [Validar go-live](#validar-go-live)
+
+## Estrutura do projeto
 
 ```text
 .
 |-- .env.example
+|-- .gitignore
 |-- Dockerfile
 |-- Makefile
 |-- README.md
-|-- main.py
-|-- prompts/
-|   `-- system_prompt.md
+|-- compose.yaml
 |-- docs/
+|   |-- README.md
 |   |-- cloudsql-postgres.md
 |   |-- gcp-setup.md
 |   |-- go-live-checklist.md
-|   `-- local-development.md
+|   |-- local-development.md
+|   `-- troubleshooting.md
+|-- main.py
+|-- prompts/
+|   `-- system_prompt.md
 |-- requirements.txt
+|-- scripts/
+|   `-- doctor.py
 `-- tools.py
 ```
 
-## O que voce realmente edita
+## Setup local
 
-- `.env`: credenciais e configuracao
-- `prompts/system_prompt.md`: comportamento do agente
-- `tools.py`: logica e integracoes
+### Pré-requisitos
 
-`main.py` deve mudar pouco. Ele so carrega o prompt, registra tools e inicia o agente.
+- Python 3.11+
+- Docker
+- acesso à Gemini API
+- acesso à Evolution API
 
-## Fluxo por perfil
-
-### Se voce e gestor e o tecnico ainda nao tem acesso
-
-Use o fluxo interno de concessao de acesso:
-
-`https://dev.n8n.ipnetsolucoes.com.br/webhook/acessos-gcp-whatsapp-agent`
-
-Esse e o caminho recomendado para criar ou liberar a Service Account de acesso do tecnico. O passo a passo completo esta em [docs/gcp-setup.md](/Users/Usuario/ipnet-agents-whatsapp/docs/gcp-setup.md).
-
-### Se voce e tecnico e ja tem acesso
-
-1. clone o repo
-2. copie `.env.example` para `.env`
-3. faca o setup local
-4. ajuste prompt e tools
-5. valide localmente
-6. faca o deploy
-
-## Quickstart tecnico
-
-### 1. Clonar e instalar
+### Passo 1: clonar o repositório
 
 ```bash
 git clone https://github.com/queziademetrioleo/ipnet-agents-whatsapp.git
 cd ipnet-agents-whatsapp
+```
+
+### Passo 2: criar o `.env`
+
+```bash
 cp .env.example .env
+```
+
+### Passo 3: subir PostgreSQL e Redis locais
+
+```bash
+make infra-up
+```
+
+Isso sobe:
+
+- PostgreSQL em `127.0.0.1:5432`
+- Redis em `127.0.0.1:6379`
+
+### Passo 4: instalar dependências Python
+
+```bash
 make setup
+```
+
+### Passo 5: validar o ambiente
+
+```bash
+make doctor
 make help
 ```
 
-### 2. Preencher o `.env`
+Se `make doctor` acusar placeholder ou variável ausente, corrija o `.env` antes de continuar.
 
-Campos minimos:
+## Configurar o agente
 
-- `IPNET_AGENT_NAME`
-- `IPNET_INSTANCE_NAME`
-- `IPNET_GEMINI_API_KEY`
-- `IPNET_EVOLUTION_API_URL`
-- `IPNET_EVOLUTION_API_KEY`
-- `IPNET_POSTGRES_URL`
-- `IPNET_REDIS_URL`
-- `IPNET_SERVICE_ACCOUNT` se for deployar com SA explicita
+Você só deve mexer nestes pontos:
 
-Observacao importante:
+- `.env`
+- `prompts/system_prompt.md`
+- `tools.py`
 
-- este starter envia as variaveis do `.env` para o Cloud Run via `--set-env-vars`
-- por padrao, este repo nao integra Secret Manager
-- se o time quiser Secret Manager, isso precisa ser implementado explicitamente no fluxo de deploy
+### `.env`
 
-### 3. Rodar localmente
+Campos mínimos para desenvolvimento local:
+
+```env
+IPNET_AGENT_NAME=IPNET WhatsApp Agent
+IPNET_INSTANCE_NAME=ipnet-whatsapp-agent
+IPNET_GEMINI_API_KEY=AIza...
+IPNET_EVOLUTION_API_URL=https://evolution.seudominio.com
+IPNET_EVOLUTION_API_KEY=sua-chave
+IPNET_POSTGRES_URL=postgresql+asyncpg://postgres:postgres@127.0.0.1:5432/agentdb
+IPNET_REDIS_URL=redis://127.0.0.1:6379/0
+```
+
+### `prompts/system_prompt.md`
+
+Use este arquivo para definir:
+
+- papel do agente
+- escopo
+- regras de comportamento
+- forma de resposta
+- quando transferir para humano
+
+### `tools.py`
+
+Use este arquivo para:
+
+- FAQ interna
+- integrações com CRM
+- registro de leads
+- consulta de status
+- operações seguras que o agente pode chamar
+
+## Executar localmente
+
+### Subir o agente
 
 ```bash
 make run
+```
+
+### Validar healthcheck
+
+```bash
 make health
 ```
 
-Para QR code e status do WhatsApp:
+### Obter QR code
 
 ```bash
 make qrcode
+```
+
+### Verificar status da conexão
+
+```bash
 make status
 ```
 
-Guia completo de ambiente local:
+## Preparar GCP
 
-- [docs/local-development.md](/Users/Usuario/ipnet-agents-whatsapp/docs/local-development.md)
+O passo a passo completo está aqui:
 
-## GCP e infraestrutura
+- [docs/gcp-setup.md](docs/gcp-setup.md)
+- [docs/cloudsql-postgres.md](docs/cloudsql-postgres.md)
 
-O bootstrap de GCP foi separado em docs operacionais:
+Esse material cobre:
 
-- [docs/gcp-setup.md](/Users/Usuario/ipnet-agents-whatsapp/docs/gcp-setup.md)
-- [docs/cloudsql-postgres.md](/Users/Usuario/ipnet-agents-whatsapp/docs/cloudsql-postgres.md)
-- [docs/go-live-checklist.md](/Users/Usuario/ipnet-agents-whatsapp/docs/go-live-checklist.md)
-
-Essas docs cobrem:
-
-- acesso inicial do tecnico
-- APIs do projeto
+- acesso inicial do técnico
+- APIs necessárias
+- runtime Service Account
+- Cloud Build Service Account
 - Cloud SQL
 - PostgreSQL
 - Redis / Memorystore
 - VPC Connector
-- Runtime Service Account
-- Cloud Build Service Account
 - deploy
-- validacao pos-deploy
+- validação final
 
-## Deploy
+### Observação importante sobre segredos
 
-### Deploy base
+Hoje este repositório faz deploy usando `--set-env-vars`. Isso significa:
+
+- o `.env` é a fonte de verdade para o deploy
+- este projeto não usa Secret Manager nativamente
+- se o time quiser migrar para Secret Manager, será preciso alterar o fluxo de deploy
+
+## Fazer deploy
+
+### Passo 1: preencher o `.env` de produção
+
+Para Cloud Run:
+
+- `IPNET_POSTGRES_URL` deve usar `127.0.0.1`
+- `IPNET_REDIS_URL` deve usar o IP privado do Memorystore
+- `IPNET_SERVICE_ACCOUNT` deve apontar para a runtime SA correta
+
+### Passo 2: fazer o deploy base
 
 ```bash
 make deploy \
@@ -163,13 +246,25 @@ make deploy \
   SQL_INSTANCE=SEU_PROJECT_ID:us-central1:whatsapp-agent-db
 ```
 
-### Passo adicional obrigatorio para Redis
+Esse passo faz:
 
-O comando `make deploy` faz o deploy base do servico e injeta variaveis do `.env`, mas ele nao configura automaticamente o VPC Connector do Cloud Run.
+- build da imagem
+- push da imagem
+- deploy do Cloud Run
+- anexo do Cloud SQL
+- envio das variáveis `IPNET_*` do `.env`
 
-Depois do primeiro deploy, voce ainda precisa rodar o update do servico para anexar o connector e permitir acesso ao Memorystore. O comando exato esta em [docs/gcp-setup.md](/Users/Usuario/ipnet-agents-whatsapp/docs/gcp-setup.md).
+### Passo 3: anexar o VPC Connector para o Redis
 
-### Logs
+O deploy base não configura automaticamente o acesso privado ao Redis.
+
+Você ainda precisa rodar o comando de update descrito em:
+
+- [docs/gcp-setup.md](docs/gcp-setup.md)
+
+Sem isso, o agente sobe, mas não consegue acessar o Memorystore.
+
+### Passo 4: acompanhar logs
 
 ```bash
 make logs \
@@ -180,57 +275,72 @@ make logs \
 
 ## Cloud SQL e PostgreSQL
 
-Hoje o repo depende de PostgreSQL para:
+Este agente depende de PostgreSQL para:
 
-- historico das conversas
-- estado interno do agente via Agno
+- histórico das conversas
+- sessões internas do Agno
 
 Pontos importantes:
 
-- no Cloud Run, o host continua `127.0.0.1` por causa do Cloud SQL Auth Proxy
-- localmente, voce pode usar PostgreSQL em Docker
-- as tabelas do framework sao criadas automaticamente na primeira inicializacao bem-sucedida
+- localmente, você pode usar o PostgreSQL do `compose.yaml`
+- em Cloud Run, a conexão continua em `127.0.0.1` por causa do Cloud SQL Auth Proxy
+- as tabelas são criadas automaticamente na primeira inicialização bem-sucedida
 
 Detalhes completos:
 
-- [docs/cloudsql-postgres.md](/Users/Usuario/ipnet-agents-whatsapp/docs/cloudsql-postgres.md)
+- [docs/cloudsql-postgres.md](docs/cloudsql-postgres.md)
 
-## Validacao minima antes do go-live
+## Validar go-live
+
+Checklist mínimo:
 
 1. `make run` sobe sem erro
-2. `make health` responde `ok`
-3. QR code e status do WhatsApp funcionam
-4. Cloud SQL esta `RUNNABLE`
-5. Redis esta `READY`
-6. Cloud Run responde no endpoint de health
-7. Webhook da Evolution API aponta para a URL correta
+2. `make health` retorna `ok`
+3. QR code e status funcionam
+4. Cloud SQL está `RUNNABLE`
+5. Redis está `READY`
+6. Cloud Run responde
+7. webhook da Evolution API aponta para a URL correta
+8. teste ponta a ponta no WhatsApp funciona
 
 Checklist completo:
 
-- [docs/go-live-checklist.md](/Users/Usuario/ipnet-agents-whatsapp/docs/go-live-checklist.md)
+- [docs/go-live-checklist.md](docs/go-live-checklist.md)
 
-## Comandos uteis
+## Comandos disponíveis
 
-```bash
-make help
-make setup
-make run
-make health
-make qrcode
-make status
-make deploy PROJECT_ID=... REGION=... SERVICE=... SQL_INSTANCE=...
-make logs PROJECT_ID=... REGION=... SERVICE=...
-```
+| Comando | Finalidade |
+|---|---|
+| `make help` | Mostra os alvos disponíveis |
+| `make infra-up` | Sobe PostgreSQL e Redis locais com Docker Compose |
+| `make infra-down` | Derruba PostgreSQL e Redis locais |
+| `make setup` | Cria `.venv` e instala dependências |
+| `make doctor` | Valida `.env` e ferramentas locais |
+| `make run` | Sobe o agente localmente |
+| `make health` | Testa o endpoint `/webhook/health` |
+| `make qrcode` | Busca QR code da instância na Evolution API |
+| `make status` | Consulta o status da instância |
+| `make deploy ...` | Faz build + push + deploy base no Cloud Run |
+| `make logs ...` | Acompanha logs do Cloud Run |
 
-## Dependencias e compatibilidade
+## Documentação detalhada
 
-- este repo depende do framework `whatsapp-agent-framework`
-- o `requirements.txt` fixa `agno<2` porque o framework atual ainda usa a API 1.x do Agno
+- [docs/README.md](docs/README.md)
+- [docs/local-development.md](docs/local-development.md)
+- [docs/gcp-setup.md](docs/gcp-setup.md)
+- [docs/cloudsql-postgres.md](docs/cloudsql-postgres.md)
+- [docs/go-live-checklist.md](docs/go-live-checklist.md)
+- [docs/troubleshooting.md](docs/troubleshooting.md)
 
-## Limites atuais do starter
+## Dependências e compatibilidade
 
-- nao ha integracao nativa com Secret Manager neste repo
-- o VPC Connector ainda e configurado manualmente no pos-deploy
-- o starter traz tools placeholder; voce precisa trocar por integracoes reais antes de producao
+- este projeto depende do framework `whatsapp-agent-framework`
+- `requirements.txt` fixa `agno<2` porque o framework atual ainda usa a API 1.x do Agno
 
-Esses limites nao impedem uso interno, mas precisam estar claros para o time.
+## Limitações atuais
+
+- não há integração nativa com Secret Manager neste projeto
+- o VPC Connector ainda é um passo manual após o deploy base
+- `tools.py` ainda é placeholder e precisa ser substituído pelas integrações reais do time
+
+Essas limitações não impedem uso interno, mas precisam ser entendidas antes de produção.

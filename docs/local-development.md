@@ -19,16 +19,13 @@ make setup
 ## 3. Subir PostgreSQL e Redis locais
 
 ```bash
-docker run --name ipnet-postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -e POSTGRES_DB=agentdb \
-  -p 5432:5432 \
-  -d postgres:15
-
-docker run --name ipnet-redis \
-  -p 6379:6379 \
-  -d redis:7
+make infra-up
 ```
+
+O `compose.yaml` deste repo sobe:
+
+- PostgreSQL em `127.0.0.1:5432`
+- Redis em `127.0.0.1:6379`
 
 ## 4. Preencher o `.env`
 
@@ -108,3 +105,9 @@ Verifique:
 - a instancia existe na Evolution API
 - a chave da Evolution API esta correta
 - a instancia nao esta ja conectada
+
+## 11. Encerrar a infraestrutura local
+
+```bash
+make infra-down
+```

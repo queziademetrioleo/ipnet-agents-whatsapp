@@ -151,7 +151,7 @@ Guarde o `connectionName` retornado. Ele entra no deploy como `SQL_INSTANCE`.
 
 Detalhes operacionais do PostgreSQL:
 
-- [cloudsql-postgres.md](/Users/Usuario/ipnet-agents-whatsapp/docs/cloudsql-postgres.md)
+- [cloudsql-postgres.md](cloudsql-postgres.md)
 
 ## 6. Redis (Memorystore)
 
@@ -257,4 +257,4 @@ Estado esperado:
 
 Checklist operacional:
 
-- [go-live-checklist.md](/Users/Usuario/ipnet-agents-whatsapp/docs/go-live-checklist.md)
+- [go-live-checklist.md](go-live-checklist.md)
